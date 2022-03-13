@@ -1,87 +1,59 @@
-
-def f(txt, a = None, b = None):
-
-    style = {
-        "normal" : 0,
-        "bold" : 1,
-        "light" : 2,
-        "italic" : 3,
-        "underline" : 4,
-        "inverse" : 5,
-        "hide" : 6,
-        "strikeout" : 7
-    }
-
-    color = {
-        "black" : 30, "BLACK": 40,
-        "red" : 31, "RED": 41,
-        "green" : 32, "GREEN": 42,
-        "yellow" : 33, "YELLOW": 43,
-        "blue" : 34, "BLUE": 44,
-        "purple" : 35, "PURPLE": 45,
-        "cyan" : 36, "CYAN": 46,
-        "white" : 37, "WHITE": 47            
-    }
+#format to string
+def f(txt, a = None, b = None, c = None):
+    style_font = { "normal" : 0, "bold" : 1, "light" : 2, "italic" : 3, "underline" : 4, "inverse" : 5, "hide" : 6, "strikeout" : 7 }
+    color_font = { "black" : 30, "red" : 31, "green" : 32, "yellow" : 33, "blue" : 34, "purple" : 35, "cyan" : 36, "white" : 37 }
+    color_background = { "BLACK" : 40, "RED" : 41, "GREEN" : 42, "YELLOW" : 43, "BLUE" : 44, "PURPLE" : 45, "CYAN" : 46, "WHITE" : 47 }
     
-    
-    val_style = 0
-    val_color = 37
-    if a == None and b == None: 
-        val_style = 0
-        val_color = 37
+    clean = '\033[0;00m'
 
-    elif a != None and b == None:
-        if a in style.keys():
-            val_style = style[a]
-        if a in color.keys():
-            val_color = color[a]
+    if a == None and b == None and c == None: 
+        out = (f"\033[0;37m{txt}{clean}")
 
-    elif a != None and b != None:
-        if a in style.keys():
-            val_style = style[a]
-        if a in color.keys():
-            val_color = color[a]
-        if b in style.keys():
-            val_style = style[b]
-        if b in color.keys():
-            val_color = color[b]
+    elif a != None and b == None and c == None: 
+        if a in style_font.keys(): v1 = str(style_font[a])+';37'
+        elif a in color_font.keys(): v1 = '0;'+str(color_font[a])
+        elif a in color_background.keys(): v1 = '0;'+str(color_background[a])
+        
+        out = (f"\033[{v1}m{txt}{clean}")
+        
+    elif a != None and b != None and c == None:
+        if a in style_font.keys(): v1 = style_font[a]
+        elif a in color_font.keys(): v1 = color_font[a]
+        elif a in color_background.keys(): v1 = color_background[a]
+
+        if b in style_font.keys(): v2 = style_font[b]
+        elif b in color_font.keys(): v2 = color_font[b]
+        elif b in color_background.keys(): v2 = color_background[b]
+
+        out = (f"\033[{v1};{v2}m{txt}{clean}")
+
+    elif a != None and b != None and c != None:
+        if a in style_font.keys(): v1 = style_font[a]
+        elif a in color_font.keys(): v1 = color_font[a]
+        elif a in color_background.keys(): v1 = color_background[a]
+
+        if b in style_font.keys(): v2 = style_font[b]
+        elif b in color_font.keys(): v2 = color_font[b]
+        elif b in color_background.keys(): v2 = color_background[b]
+
+        if c in style_font.keys(): v3 = style_font[c]
+        elif c in color_font.keys(): v3 = color_font[c]
+        elif c in color_background.keys(): v3 = color_background[c]
+
+        out = (f"\033[{v1};{v2};{v3}m{txt}{clean}")
 
 
+    return out
 
-    return(f"\033[{val_style};{val_color}m{txt}\033[0;00m")
-
-
-# print(f('hola'))
-print(f('hola','CYAN'))
-# print(f('hola','bold','RED'))
-# print(f('hola','undeline','red'))
+# print testing - - - - -
+# print(f('hola !!!'))
+# print(f('hola','RED'))
+# print(f('hola','italic','GREEN'))
+# print(f('hola','cyan','light'))
 # print(f('hola','red', '',''))
 # print(f('hola','', 'bold','RED'))
 
 
-
-    # for x in lista:
-    #     if x == None:
-    #         color = 0
-    #         style = 0
-    #     else:
-
-    #     # else:
-    #     #     style = 37
-
-
-
-# class f:
-
-
-
-
-
-# print("\033[+": "+"\033[1;34m"+" hola ")
-# print("\033[0;34m"+"hola: "+"\033[1;34m"+" hola ")
-# print("\033[0;34m"+"hola: "+"\033[1;34m"+" hola ")
-# print("\033[0;37m"+"vddv")
-# # print("0\33[0;47m"+"hola")
 
 
 
@@ -113,5 +85,7 @@ def jumbo(txt,size=1):
     
     
     return block
+
+
 
 
